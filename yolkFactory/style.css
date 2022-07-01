@@ -1,0 +1,151 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+    box-sizing: inherit;
+}
+
+body {
+    background-color: hsl(200, 80%, 30%);
+    background-image: radial-gradient(hsl(200, 80%, 30%), hsl(210, 80%, 20%));
+    font-family: "Raleway", Arial, Helvetica, sans-serif;
+    color: white;
+    line-height: 1.4;
+    margin: 0;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+    font-family: "Alfa Slab One", serif;
+    font-weight: 400;
+}
+
+.main {
+    display: block;
+}
+
+img {
+    max-width: 100%;
+}
+
+.page_header {
+    margin: 0;
+    padding: 1rem; /*for mobile viewport*/
+}
+
+/*Display for larger screen resolution*/
+@media (min-width: 30em) {
+    .page_header {
+        padding: 2rem 2rem 3rem;
+    }
+}
+
+.nav_links {
+    display: flex; /*Use flexbox to spread the nav items across the screen horizontally*/
+    justify-content: space-evenly;
+    margin-top: 0;
+    margin-bottom: 0;list-style: none;
+    padding: 0 1rem;
+}
+
+.nav_links > li + li {
+    margin-left: .8em;
+}
+
+.nav_links > li > a {
+    display: block;
+    padding: .8em 0;
+    color: white;
+    font-size: .8rem;
+    text-decoration: none;
+    /*properties below are used to style the link text*/
+    text-transform: uppercase;
+    letter-spacing: .6em;
+}
+
+.nav_links--icon {
+    height: 1.5em;
+    width: 1.5em;
+    vertical-align: -.3em;/*moves icons down slightly to center them with the labels*/
+}
+
+/*Positioning the menu for meduim and large viewports*/
+
+@media (min-width: 30em) {
+    .main_nav {
+        position: fixed;
+        top: 8.25em;
+        left: 0;
+        /*z-indexuse to show the nav in front of other content added to the page later*/
+        z-index: 10;
+        background-color: transparent; /*Initially used to leave the background color transparent*/
+        transition: background-color .5s lineair;/*Adding transition effect to the background*/
+        border-top-right-radius: .5em;
+        border-bottom-right-radius: .5em;
+    }
+ 
+    /*Applying a dark semi-trasparent background on hover*/
+    .main_nav:hover {
+        background-color: rgba(0, 0, 0, .6);
+    }
+}
+
+/*Override the flexbox from mobile styles to make links stack vertically*/
+
+@media (min-width: 30em) {
+    .nav_links {
+        display: block;
+        padding: 1em;
+        margin-bottom: 0;
+    }
+
+    .nav_links > li + li {
+        margin-left: 0; /*Used to remove the space between li tags*/
+    }
+
+    .nav_links__label {
+        margin-left: 1em; /*Adding space between the icons and the labels by shifting them to the left*/
+    }
+}
+
+/*Scaling up the icon when its link is hovered or focused*/
+@media (min-width: 30em) {
+    .nav_links {
+        display: block;
+        padding: 1em;
+        margin-bottom: 0;
+    }
+
+    .nav_links > li + li {
+        margin-left: 0;
+    }
+
+    .nav_links__label {
+        display: inline-block; /*Makes the label an inline block so that transforms can be applied to it*/
+        margin-left: 1em;
+        padding-right: 1em;
+        opacity: 0; /*used to hidethe label initialy*/
+        transform: translate(-1em);/*Shift the label 1em to the left*/
+        /*Adding transition to the values that will change*/
+        transition: transform .4s cubic-bezier(0.2, 0.9, 0.3, 1.3), opacity .4s linear;
+    }
+ 
+    /*On hover or focus, makes the label visible and shift it back to it correct position*/
+    .nav_links:hover .nav_links__label,
+    .nav_links a:focus > .nav_links__label {
+        opacity: 1;
+        transform: translate(0); /*Used to shift back the label toit correct position*/
+    }
+
+    .nav_links--icon {
+        transition: transform .2s ease-out;
+    }
+
+    .nav_links a:hover .nav_links--icon,
+    .nav_links a:focus .nav_links--icon {
+        transform: scale(1.3);
+    }
+}
